@@ -1,5 +1,4 @@
 <template>
-    
     <main>
         <label for="">Number of Cards</label>
         <section class="cardamount">
@@ -48,6 +47,7 @@ export default {
                 }
                 else{
                     this.timings[i].selected = true;
+                    this.$store.commit("setSeconds", this.timings[i].seconds);
                 }
             }
         },
@@ -58,6 +58,7 @@ export default {
                 }
                 else{
                     this.cardAmount[i].selected = true;
+                    this.$store.commit("setCardAmount", this.cardAmount[i].amount);
                 }
             }
         }
