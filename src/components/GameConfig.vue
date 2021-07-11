@@ -119,6 +119,15 @@ export default {
     }
 
     .startbutton{
-        
+        font-size: 1.5rem;
+        color: white;
+        background-color: $primary-colour;
+
+        padding: 10px 10px;
+        margin-top: 40px;
+
+        &:hover{
+            background-color: $primary-hover;
+        }
     }
 </style>
