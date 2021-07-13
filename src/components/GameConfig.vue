@@ -9,7 +9,7 @@
         <section class="timeoption">
             <button v-for="(item, index) in timings" :class="[item.selected ? 'selected' : 'unselected']" v-on:click="selectTime(index)">{{item.seconds}} Seconds</button>
         </section>
-        <button class="startbutton" v-on:click="startGame()">Start Game!</button>
+        <button class="startbutton" v-on:click="startGame">Start Game!</button>
     </main>
 </template>
 
@@ -62,8 +62,8 @@ export default {
                 }
             }
         },
-        starGame(){
-            this.router.push({path : '/gameboard'})
+        startGame(){
+            this.$router.push('/gameboard')
 
         }
     }
