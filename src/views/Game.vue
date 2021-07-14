@@ -1,8 +1,8 @@
 <template>
     <h1>{{message}}</h1>
-    <img src="../assets/cards/9H.png" alt="">
+    <!-- <img src="../assets/cards/9H.png" alt=""> -->
     <main>
-        <img v-for="(item, index) in cards" v-bind:src="'../assets/cards/' + item" />
+        <img v-for="(item, index) in selectedimg" :src="item">
     </main>
 </template>
 <script>
@@ -14,22 +14,29 @@ export default {
         return{
             suite:["D", "C", "H", "S"],
             message: "Remember your cards!",
-            cards:[]
+            source: require("../assets/cards/1C.png"),
+            selectedimg:[require("../assets/cards/1C.png"),require("../assets/cards/1C.png"),require("../assets/cards/1C.png"),require("../assets/cards/1C.png")],
+            cards:["../assets/cards/1C.png", "../assets/cards/1D.png", "../assets/cards/1H.png", "../assets/cards/1S.png"]
         }
     },
     mounted(){
+        console.log("CREATE")
         let amount = this.$store.state.cardAmount;
-        let previous = 0;
+        let previousNum = 0;
+        let previousSuite = -1;
         for(let i = 0; i < amount; i++){
             let picknum = Math.floor(Math.random()*13) + 1;
             let picksuite = Math.floor(Math.random()*4);
             while (picknum == previous){
+                this.selectedimg.pop();
                 picknum = Math.floor(Math.random()*52) + 1;
             }
-            previous = picknum;
-            this.cards.push(`${picknum}${this.suite[picksuite]}.png`)
+            previousNum = picknum;
+            previousSuite = picksuite;
+            this.selectedimg.push(require(`../assets/cards/${picknum}${this.suite[picksuite]}.png`))
         }
         previous = 0;
+        console.log(this.selectedimg);
     }
 }
 </script>
@@ -45,6 +52,6 @@ export default {
 
     img{
         width: 200px;
-        height: 400px;
+        height: 300px;
     }
 </style>
