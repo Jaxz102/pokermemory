@@ -4,7 +4,7 @@
   
         <section class="table">
 
-            <div v-for="(item, index) in selectedimg" class="card" >
+            <div v-for="(item, index) in selectedimg" class="card" :style="{width: cardStyles.width, height: cardStyles.height}">
                 <div class="card__inner">
                     <img class="card__inner--front" :src="item">
                     <img src="../assets/cards/red_back.png" class="card__inner--back" alt="">
@@ -26,7 +26,18 @@ export default {
             message: "Remember your cards!",
             source: require("../assets/cards/1C.png"),
             selectedimg:[],
+            cardStyles:{width: "150px", height: "230px"}
+
             
+        }
+    },
+    methods:{
+        cardSize(amount){
+            console.log("cardsize");
+            if(amount > 10){
+                this.cardStyles.width = "100px";
+                this.cardStyles.height = "115px";
+            }
         }
     },
     mounted(){
@@ -45,7 +56,7 @@ export default {
             previousSuite = picksuite;
             this.selectedimg.push(require(`../assets/cards/${picknum}${this.suite[picksuite]}.png`))
         }
-        
+        this.cardSize(amount);
         console.log(this.selectedimg);
     }
 }
@@ -53,11 +64,8 @@ export default {
 
 <style lang="scss" scoped>
     @import "../assets/styles.scss";   
-    main{
-        width: 75%;
-        height: 50%;
-        background-color: aliceblue;
-        
+    h1{
+        font-size: 3rem;
     }
 
     .table{
@@ -68,6 +76,8 @@ export default {
         margin: auto;
         background-color: blue;
         flex-wrap: wrap;
+        
+        
     }
 
     img{
@@ -79,16 +89,16 @@ export default {
     }
 
     .card{
-        width: 150px;
-        height: 230px;
+        // width: 150px; //125
+        // height: 230px;  //192
         position: relative;
         background-color: red;
         perspective: 500px;
-        margin: 10px 10px;
+        margin: 5px 10px;
 
         &__inner{
             width: 100%;
-            height: fit-content;
+            height: 100%;
             transform-style: preserve-3d;
             // position: absolute;
             transition: all .5s;
