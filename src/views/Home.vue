@@ -4,7 +4,7 @@
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div> -->
   	<button v-on:click="guestPlay" v-if="!front" class="back-button">Back to Home</button>
-	<GameCongif v-if="!front"/>
+	<GameCongif v-if="!front" class="gameconfig"/>
 	<main v-if="front">
 		<h1>POKER MEMORY</h1>
 		<p>A game which help you train your memory and thinking</p>
@@ -85,7 +85,7 @@ export default {
 		}
 	}
 	p{
-		color: $sub-black;
+		color: $vue-black;
 		font-size: 1.5rem;
 		width: 75%;
 		margin: auto;
@@ -114,5 +114,11 @@ export default {
 			color: $primary-hover;
 			border: solid 2px $primary-hover;
 		}
+	}
+
+	.gameconfig{
+		margin: auto;
+		margin-top: 50px;
+
 	}
 </style>

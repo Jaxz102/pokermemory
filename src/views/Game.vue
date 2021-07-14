@@ -1,7 +1,7 @@
 <template>
     <h1>{{message}}</h1>
     <!-- <img src="../assets/cards/9H.png" alt=""> -->
-    <main>
+  
         <section class="table">
 
             <div v-for="(item, index) in selectedimg" class="card" >
@@ -13,7 +13,7 @@
 
         </section>
         <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
-    </main>
+
 </template>
 <script>
 
@@ -39,7 +39,7 @@ export default {
             let picknum = Math.floor(Math.random()*13) + 1;
             let picksuite = Math.floor(Math.random()*4);
             while (picknum == previousNum && picksuite == previousSuite){
-                picknum = Math.floor(Math.random()*52) + 1;
+                picknum = Math.floor(Math.random()*13) + 1;
             }
             previousNum = picknum;
             previousSuite = picksuite;
@@ -60,20 +60,37 @@ export default {
         
     }
 
+    .table{
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        width: 90%;
+        margin: auto;
+        background-color: blue;
+        flex-wrap: wrap;
+    }
+
     img{
-        width: 150px;
+        display: block;
+        width: 100%;
         position: absolute;
         backface-visibility: hidden;
         
     }
 
     .card{
-        height: fit-content;
-        height: fit-content;
+        width: 150px;
+        height: 230px;
+        position: relative;
+        background-color: red;
+        perspective: 500px;
+        margin: 10px 10px;
 
         &__inner{
+            width: 100%;
+            height: fit-content;
             transform-style: preserve-3d;
-            position: absolute;
+            // position: absolute;
             transition: all .5s;
             position: relative;
 
@@ -85,6 +102,13 @@ export default {
                 transform: rotateY(180deg);
             }
 
+           
+
+        }
+
+        &:hover &__inner{
+
+            transform: rotateY(180deg);
         }
 
 

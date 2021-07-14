@@ -82,11 +82,10 @@ export default {
     }
 
     main{
-        background-color: beige;
+        // background-color: beige;
         width: 75%;
-        height: 500px;
-        margin: auto;
-        margin-top: 50px;
+        height: fit-content;
+    
 
         & > section{
             display: flex;
@@ -112,7 +111,7 @@ export default {
         color: $primary-colour;
     }
     .unselected{
-        border: solid 2px $black;
+        border: solid 2px $vue-black;
         color: $black;
     }
 
