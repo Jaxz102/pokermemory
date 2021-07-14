@@ -2,7 +2,17 @@
     <h1>{{message}}</h1>
     <!-- <img src="../assets/cards/9H.png" alt=""> -->
     <main>
-        <img v-for="(item, index) in selectedimg" :src="item">
+        <section class="table">
+
+            <div v-for="(item, index) in selectedimg" class="card" >
+                <div class="card__inner">
+                    <img class="card__inner--front" :src="item">
+                    <img src="../assets/cards/red_back.png" class="card__inner--back" alt="">
+                </div>
+            </div>
+
+        </section>
+        <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
     </main>
 </template>
 <script>
@@ -15,8 +25,8 @@ export default {
             suite:["D", "C", "H", "S"],
             message: "Remember your cards!",
             source: require("../assets/cards/1C.png"),
-            selectedimg:[require("../assets/cards/1C.png"),require("../assets/cards/1C.png"),require("../assets/cards/1C.png"),require("../assets/cards/1C.png")],
-            cards:["../assets/cards/1C.png", "../assets/cards/1D.png", "../assets/cards/1H.png", "../assets/cards/1S.png"]
+            selectedimg:[],
+            
         }
     },
     mounted(){
@@ -24,18 +34,18 @@ export default {
         let amount = this.$store.state.cardAmount;
         let previousNum = 0;
         let previousSuite = -1;
+
         for(let i = 0; i < amount; i++){
             let picknum = Math.floor(Math.random()*13) + 1;
             let picksuite = Math.floor(Math.random()*4);
-            while (picknum == previous){
-                this.selectedimg.pop();
+            while (picknum == previousNum && picksuite == previousSuite){
                 picknum = Math.floor(Math.random()*52) + 1;
             }
             previousNum = picknum;
             previousSuite = picksuite;
             this.selectedimg.push(require(`../assets/cards/${picknum}${this.suite[picksuite]}.png`))
         }
-        previous = 0;
+        
         console.log(this.selectedimg);
     }
 }
@@ -51,7 +61,33 @@ export default {
     }
 
     img{
-        width: 200px;
-        height: 300px;
+        width: 150px;
+        position: absolute;
+        backface-visibility: hidden;
+        
     }
+
+    .card{
+        height: fit-content;
+        height: fit-content;
+
+        &__inner{
+            transform-style: preserve-3d;
+            position: absolute;
+            transition: all .5s;
+            position: relative;
+
+            &--front{
+                
+            }
+
+            &--back{
+                transform: rotateY(180deg);
+            }
+
+        }
+
+
+    }
+
 </style>
