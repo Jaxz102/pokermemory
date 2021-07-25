@@ -2,22 +2,22 @@
     <h1>{{message}}</h1>
     <!-- <img src="../assets/cards/9H.png" alt=""> -->
   
-        <section class="table">
+    <section class="table">
 
-            <div v-for="(item, index) in selectedimg" class="card" :style="{width: cardStyles.width, height: cardStyles.height}">
-                <div class="card__inner">
-                    <img class="card__inner--front" :src="item">
-                    <img src="../assets/cards/red_back.png" class="card__inner--back" alt="">
-                </div>
+        <div v-for="(item, index) in selectedimg" class="card" :style="{width: cardStyles.width, height: cardStyles.height}">
+            <div class="card__inner">
+                <img class="card__inner--front" :src="item">
+                <img src="../assets/cards/red_back.png" class="card__inner--back" alt="">
             </div>
+        </div>
 
-        </section>
+    </section>
         <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
+    <div style="height: 50px"></div>
 
 </template>
+
 <script>
-
-
 export default {
     name: "Game",
     data(){
@@ -26,19 +26,11 @@ export default {
             message: "Remember your cards!",
             source: require("../assets/cards/1C.png"),
             selectedimg:[],
-            cardStyles:{width: "150px", height: "230px"}
-
-            
+            cardStyles:{width: "125px", height: "192px"} //cardStyles:{width: "150px", height: "230px"}
         }
     },
     methods:{
-        cardSize(amount){
-            console.log("cardsize");
-            if(amount > 10){
-                this.cardStyles.width = "100px";
-                this.cardStyles.height = "115px";
-            }
-        }
+        
     },
     mounted(){
         console.log("CREATE")
@@ -56,8 +48,13 @@ export default {
             previousSuite = picksuite;
             this.selectedimg.push(require(`../assets/cards/${picknum}${this.suite[picksuite]}.png`))
         }
-        this.cardSize(amount);
-        console.log(this.selectedimg);
+   
+       
+    },
+    unmounted(){
+        this.$store.commit("setCardAmount", 5);
+        this.$store.commit("setSeconds", 10);
+
     }
 }
 </script>
@@ -76,7 +73,7 @@ export default {
         margin: auto;
         background-color: blue;
         flex-wrap: wrap;
-        
+        margin-top: 20px;
         
     }
 

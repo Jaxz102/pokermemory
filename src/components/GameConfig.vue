@@ -40,7 +40,7 @@ export default {
     },
     methods:{
         selectTime(index){
-            console.log(this.timings[index].selected);
+            
             for (let i = 0; i < this.timings.length;i++){
                 if(i != index){
                     this.timings[i].selected = false;
@@ -65,7 +65,7 @@ export default {
         startGame(){
             this.$router.push('/gameboard')
 
-        }
+        },
     }
 }
 </script>
