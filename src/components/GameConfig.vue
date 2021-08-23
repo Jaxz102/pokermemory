@@ -64,7 +64,6 @@ export default {
         },
         startGame(){
             this.$router.push('/gameboard')
-
         },
     }
 }

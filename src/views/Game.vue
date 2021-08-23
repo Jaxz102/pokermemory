@@ -1,11 +1,10 @@
 <template>
     <h1>{{message}}</h1>
     <!-- <img src="../assets/cards/9H.png" alt=""> -->
-  
     <section class="table">
 
         <div v-for="(item, index) in selectedimg" class="card" :style="{width: cardStyles.width, height: cardStyles.height}">
-            <div class="card__inner">
+            <div class="card__inner" :style="{transform: orientation}">
                 <img class="card__inner--front" :src="item">
                 <img src="../assets/cards/red_back.png" class="card__inner--back" alt="">
             </div>
@@ -13,7 +12,9 @@
 
     </section>
         <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
-    <div style="height: 50px"></div>
+    <div class="panel">
+        <h2>You have {{seconds}} seconds left to remember your cards!</h2>
+    </div>
 
 </template>
 
@@ -26,13 +27,24 @@ export default {
             message: "Remember your cards!",
             source: require("../assets/cards/1C.png"),
             selectedimg:[],
-            cardStyles:{width: "125px", height: "192px"} //cardStyles:{width: "150px", height: "230px"}
+            cardStyles:{width: "125px", height: "192px"}, //cardStyles:{width: "150px", height: "230px"}
+            seconds: 10,
+            orientation: "rotateY(0deg)"
         }
     },
     methods:{
-        
+        startTimer(left){
+            setTimeout(function(){
+                this.seconds = left;
+                if(this.seconds > 0){
+                    this.startTimer(this.seconds-1);
+                }else{
+                    this.orientation = "rotateY(180deg)"
+                }
+            }.bind(this), 1000);
+        }
     },
-    mounted(){
+    async mounted(){
         console.log("CREATE")
         let amount = this.$store.state.cardAmount;
         let previousNum = 0;
@@ -48,8 +60,13 @@ export default {
             previousSuite = picksuite;
             this.selectedimg.push(require(`../assets/cards/${picknum}${this.suite[picksuite]}.png`))
         }
-   
-       
+        let seconds = this.$store.state.seconds;
+        this.seconds = seconds;
+        console.log("SECONDS IS ", seconds);
+        // setTimeout(this.startTimer(seconds), 1000);
+        await this.startTimer(seconds-1);
+        console.log("TIMER STOPPED!!");
+        
     },
     unmounted(){
         this.$store.commit("setCardAmount", 5);
@@ -108,16 +125,20 @@ export default {
             &--back{
                 transform: rotateY(180deg);
             }
-
-           
-
         }
+        // &:hover &__inner{
 
-        &:hover &__inner{
-
-            transform: rotateY(180deg);
-        }
-
+        //     transform: rotateY(180deg);
+        // }
+    }
+    .panel{
+        height: 100px;
+        box-shadow: 0px 0px 4px 1px rgb(189, 189, 189);
+        position: fixed;
+        bottom: 0;
+        background-color: white;
+        left: 0;
+        width: 100%;
 
     }
 
