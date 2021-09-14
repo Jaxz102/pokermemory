@@ -13,7 +13,12 @@
     </section>
         <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
     <div class="panel">
-        <h2>You have {{seconds}} seconds left to remember your cards!</h2>
+        <transition name="timer" :duration="10000">
+            <div class="panel__timer" v-if="show"></div>
+        </transition>
+        <!-- <div class="panel__timer" :style="{animation-duration: seconds}"></div> -->
+        <h2 v-if="seconds > 0">You have {{seconds}} seconds left to remember your cards!</h2>
+        <h2 v-else>{{cardsLeft}} Cards left to guess</h2>
     </div>
 
 </template>
@@ -29,17 +34,26 @@ export default {
             selectedimg:[],
             cardStyles:{width: "125px", height: "192px"}, //cardStyles:{width: "150px", height: "230px"}
             seconds: 10,
-            orientation: "rotateY(0deg)"
+            orientation: "rotateY(0deg)",
+            cardsLeft: 5,
+            show: false,
+        }
+    },
+    computed: {
+        timerSeconds(){
+            return `paneltimer ${this.$store.state.seconds}s linear`
         }
     },
     methods:{
         startTimer(left){
             setTimeout(function(){
                 this.seconds = left;
+
                 if(this.seconds > 0){
                     this.startTimer(this.seconds-1);
                 }else{
                     this.orientation = "rotateY(180deg)"
+
                 }
             }.bind(this), 1000);
         }
@@ -60,11 +74,12 @@ export default {
             previousSuite = picksuite;
             this.selectedimg.push(require(`../assets/cards/${picknum}${this.suite[picksuite]}.png`))
         }
-        let seconds = this.$store.state.seconds;
-        this.seconds = seconds;
-        console.log("SECONDS IS ", seconds);
-        // setTimeout(this.startTimer(seconds), 1000);
-        await this.startTimer(seconds-1);
+        
+        this.seconds = this.$store.state.seconds;
+        this.cardsLeft = this.$store.state.cardAmount;
+        // this.timerWidth = "0";
+        this.show = true;
+        await this.startTimer(this.seconds-1);
         console.log("TIMER STOPPED!!");
         
     },
@@ -131,6 +146,8 @@ export default {
         //     transform: rotateY(180deg);
         // }
     }
+
+    
     .panel{
         height: 100px;
         box-shadow: 0px 0px 4px 1px rgb(189, 189, 189);
@@ -139,7 +156,55 @@ export default {
         background-color: white;
         left: 0;
         width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
+        &__timer{
+            position: absolute;
+            z-index: -1;
+            background-color: $primary-colour;
+            height: 100%;
+            top: 0;
+            left: 0;
+            // width: 100%;
+            // animation-name: paneltimer;
+            // // animation-duration: 10s;
+            // animation-timing-function: linear;
+       
+        }
+    }
+
+    // @keyframes timer {
+    //     0%{
+    //         width: 100%;
+    //     }
+    //     100%{
+    //         width: 0;
+    //     }
+    // }
+
+    .timer-enter-from{
+        width: 100%;
+    }
+
+    .timer-enter-to{
+        width: 0;
+    }
+
+    .timer-enter-active{
+        transition: width;
+        transition-timing-function: linear;
+
+    }
+
+
+
+    h2{
+        // position: absolute;
+        // top: 50%;
+        // left: 50%;
+        // transform: translate(-50%, -50%);
     }
 
 </style>

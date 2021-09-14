@@ -5,12 +5,14 @@
             <button v-for="(item, index) in cardAmount" :class="[item.selected ? 'selected' : 'unselected']" v-on:click="selectAmount(index)">{{item.amount}} Cards</button>
         </section>
         <div style="height: 50px"></div>
+        
         <label for="" class="time-label">Time Given</label>
         <section class="timeoption">
             <button v-for="(item, index) in timings" :class="[item.selected ? 'selected' : 'unselected']" v-on:click="selectTime(index)">{{item.seconds}} Seconds</button>
         </section>
         <button class="startbutton" v-on:click="startGame">Start Game!</button>
     </main>
+
 </template>
 
 <script>
@@ -115,7 +117,7 @@ export default {
     }
 
     .timeoption{
-
+        flex-wrap: wrap;
     }
     .cardamount{
         flex-wrap: wrap;

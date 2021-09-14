@@ -5,8 +5,10 @@
   </div> -->
   	<button v-on:click="guestPlay" v-if="!front" class="back-button">Back to Home</button>
 	<GameCongif v-if="!front" class="gameconfig"/>
+
+	
 	<main v-if="front">
-		<h1>POKER MEMORY</h1>
+		<h1>{{text.title}}</h1>
 		<p>A game which help you train your memory and thinking</p>
 		<section>
 			<button>Play</button>
@@ -20,17 +22,21 @@
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
 import GameCongif from "@/components/GameConfig.vue"
+import language from "@/assets/language.json"
 
 export default {
 	name: 'Home',
 	data(){
 		return{
 			front: true,
+			text: {title: language.title[1]}
+			
+
 		}
 	},
 	components: {
-	HelloWorld,
-	GameCongif
+		HelloWorld,
+		GameCongif
 	},
 	methods:{
 		guestPlay(){
@@ -41,7 +47,11 @@ export default {
 				this.front = true;
 			}
 		}
+	},
+	created(){
+
 	}
+
 }
 </script>
 

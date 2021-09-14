@@ -4,6 +4,7 @@ export default createStore({
 	state: {
 		cardAmount: 5,
 		seconds: 10,
+		language: 0,
 	},
 	mutations: {
 		setCardAmount(state, num){
