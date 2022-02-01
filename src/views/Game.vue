@@ -13,8 +13,10 @@
     </section>
         <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
     <div class="panel">
-
-        <div class="panel__timer" :style="{animation:timerSeconds}"></div>
+        <transition name="panelmove">
+            <div class="" ></div>
+        </transition>
+        
         <h2 v-if="seconds > 0">You have {{seconds}} seconds left to remember your cards!</h2>
         <h2 v-else>{{cardsLeft}} Cards left to guess</h2>
     </div>
@@ -54,6 +56,19 @@ export default {
 
                 }
             }.bind(this), 1000);
+        },
+        getCard(index, amount, previousNum, previousSuite){
+            if(index < amount){
+                let picknum = Math.floor(Math.random()*13) + 1;
+                let picksuite = Math.floor(Math.random()*4);
+                while (picknum == previousNum && picksuite == previousSuite){
+                    picknum = Math.floor(Math.random()*13) + 1;
+                }
+                previousNum = picknum;
+                previousSuite = picksuite;
+                this.selectedimg.push(require(`../assets/cards/${picknum}${this.suite[picksuite]}.png`));
+                this.getCard(index+1, amount, picknum, picksuite);
+            }
         }
     },
     async mounted(){
@@ -61,17 +76,17 @@ export default {
         let amount = this.$store.state.cardAmount;
         let previousNum = 0;
         let previousSuite = -1;
-
-        for(let i = 0; i < amount; i++){
-            let picknum = Math.floor(Math.random()*13) + 1;
-            let picksuite = Math.floor(Math.random()*4);
-            while (picknum == previousNum && picksuite == previousSuite){
-                picknum = Math.floor(Math.random()*13) + 1;
-            }
-            previousNum = picknum;
-            previousSuite = picksuite;
-            this.selectedimg.push(require(`../assets/cards/${picknum}${this.suite[picksuite]}.png`))
-        }
+        this.getCard(0, amount);
+        // for(let i = 0; i < amount; i++){
+        //     let picknum = Math.floor(Math.random()*13) + 1;
+        //     let picksuite = Math.floor(Math.random()*4);
+        //     while (picknum == previousNum && picksuite == previousSuite){
+        //         picknum = Math.floor(Math.random()*13) + 1;
+        //     }
+        //     previousNum = picknum;
+        //     previousSuite = picksuite;
+        //     this.selectedimg.push(require(`../assets/cards/${picknum}${this.suite[picksuite]}.png`))
+        // }
         
         this.seconds = this.$store.state.seconds;
         this.cardsLeft = this.$store.state.cardAmount;
@@ -210,6 +225,13 @@ export default {
         // top: 50%;
         // left: 50%;
         // transform: translate(-50%, -50%);
+    }
+
+    .panelmove-enter-from{
+        width: 100%;
+    }
+    .panelmove-leave-to{
+        width: 0%;
     }
 
 </style>
