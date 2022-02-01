@@ -14,7 +14,7 @@
         <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
     <div class="panel">
 
-        <div class="panel__timer"></div>
+        <div class="panel__timer" :style="{animation:timerSeconds}"></div>
         <h2 v-if="seconds > 0">You have {{seconds}} seconds left to remember your cards!</h2>
         <h2 v-else>{{cardsLeft}} Cards left to guess</h2>
     </div>
@@ -85,7 +85,14 @@ export default {
         this.$store.commit("setCardAmount", 5);
         this.$store.commit("setSeconds", 10);
 
-    }
+    },
+    created(){
+        this.seconds = this.$store.state.seconds;
+        
+    },
+    // beforeMount(){
+    //     document.getElementsByClassName("panel__timer").style.animation = `paneltimer ${this.$store.state.seconds}s linear`;
+    // }
 }
 </script>
 
