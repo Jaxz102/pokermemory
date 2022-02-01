@@ -29,7 +29,7 @@ export default {
 	data(){
 		return{
 			front: true,
-			text: {title: language.title[1]}
+			text: {title: language.title[0]}
 			
 
 		}

@@ -13,10 +13,8 @@
     </section>
         <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
     <div class="panel">
-        <transition name="timer" :duration="10000">
-            <div class="panel__timer" v-if="show"></div>
-        </transition>
-        <!-- <div class="panel__timer" :style="{animation-duration: seconds}"></div> -->
+
+        <div class="panel__timer"></div>
         <h2 v-if="seconds > 0">You have {{seconds}} seconds left to remember your cards!</h2>
         <h2 v-else>{{cardsLeft}} Cards left to guess</h2>
     </div>
@@ -146,7 +144,14 @@ export default {
         //     transform: rotateY(180deg);
         // }
     }
-
+    @keyframes paneltimer {
+        0%{
+            width: 100%;
+        }
+        100%{
+            width: 0;
+        }
+    }
     
     .panel{
         height: 100px;
@@ -167,36 +172,29 @@ export default {
             height: 100%;
             top: 0;
             left: 0;
-            // width: 100%;
-            // animation-name: paneltimer;
-            // // animation-duration: 10s;
-            // animation-timing-function: linear;
+            width: 100%;
+            animation-name: paneltimer;
+            animation-duration: 10s;
+            animation-timing-function: linear;
        
         }
     }
 
-    // @keyframes timer {
-    //     0%{
-    //         width: 100%;
-    //     }
-    //     100%{
-    //         width: 0;
-    //     }
+    
+
+    // .timer-enter-from{
+    //     width: 100%;
     // }
 
-    .timer-enter-from{
-        width: 100%;
-    }
+    // .timer-enter-to{
+    //     width: 0;
+    // }
 
-    .timer-enter-to{
-        width: 0;
-    }
+    // .timer-enter-active{
+    //     transition: width;
+    //     transition-timing-function: linear;
 
-    .timer-enter-active{
-        transition: width;
-        transition-timing-function: linear;
-
-    }
+    // }
 
 
 
