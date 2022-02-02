@@ -57,17 +57,17 @@ export default {
                 }
             }.bind(this), 1000);
         },
-        getCard(index, amount, previousNum, previousSuite){
+        getCard(index, amount){
             if(index < amount){
                 let picknum = Math.floor(Math.random()*13) + 1;
                 let picksuite = Math.floor(Math.random()*4);
-                while (picknum == previousNum && picksuite == previousSuite){
-                    picknum = Math.floor(Math.random()*13) + 1;
-                }
-                previousNum = picknum;
-                previousSuite = picksuite;
+                // while (picknum == previousNum && picksuite == previousSuite){
+                //     picknum = Math.floor(Math.random()*13) + 1;
+                // }
+                // previousNum = picknum;
+                // previousSuite = picksuite;
                 this.selectedimg.push(require(`../assets/cards/${picknum}${this.suite[picksuite]}.png`));
-                this.getCard(index+1, amount, picknum, picksuite);
+                this.getCard(index+1, amount);
             }
         }
     },
