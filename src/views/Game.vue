@@ -12,6 +12,7 @@
 
     </section>
         <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
+    <div style="height:100px; width:100%"></div>
     <div class="panel">
         <transition name="panelmove">
             <div class="" ></div>
@@ -36,7 +37,7 @@ export default {
             seconds: 10,
             orientation: "rotateY(0deg)",
             cardsLeft: 5,
-            show: false,
+   
         }
     },
     computed: {
@@ -52,7 +53,7 @@ export default {
                 if(this.seconds > 0){
                     this.startTimer(this.seconds-1);
                 }else{
-                    this.orientation = "rotateY(180deg)"
+                    this.orientation = "rotateY(180deg)";
 
                 }
             }.bind(this), 1000);
@@ -91,7 +92,7 @@ export default {
         this.seconds = this.$store.state.seconds;
         this.cardsLeft = this.$store.state.cardAmount;
         // this.timerWidth = "0";
-        this.show = true;
+
         await this.startTimer(this.seconds-1);
         console.log("TIMER STOPPED!!");
         
