@@ -10,6 +10,7 @@
             </div>
         </div>
 
+
     </section>
         <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
     <div style="height:100px; width:100%"></div>
@@ -54,6 +55,7 @@ export default {
                     this.startTimer(this.seconds-1);
                 }else{
                     this.orientation = "rotateY(180deg)";
+                    this.message = "Click to Begin Guessing";
 
                 }
             }.bind(this), 1000);
