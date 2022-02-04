@@ -20,7 +20,8 @@
         </transition>
         
         <h2 v-if="seconds > 0">You have {{seconds}} seconds left to remember your cards!</h2>
-        <h2 v-else-if="seconds==0">{{cardsLeft}} Cards left to guess</h2>
+        <h2 v-else-if="seconds==0" v-on:click="startGuessing">Click to Start Guessing</h2>
+        <h2 v-else>{{cardsLeft}} Cards left to guess</h2>
     </div>
 
 </template>
@@ -72,6 +73,9 @@ export default {
                 this.selectedimg.push(require(`../assets/cards/${picknum}${this.suite[picksuite]}.png`));
                 this.getCard(index+1, amount);
             }
+        },
+        startGuessing(){
+            this.seconds = -1;
         }
     },
     async mounted(){
