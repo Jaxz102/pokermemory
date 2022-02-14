@@ -1,16 +1,16 @@
 <template>
     <h1>{{message}}</h1>
     <!-- <img src="../assets/cards/9H.png" alt=""> -->
-    <section class="table">
-
+    <section class="table" v-if="!guessing">
         <div v-for="(item, index) in selectedimg" class="card" :style="{width: cardStyles.width, height: cardStyles.height}">
             <div class="card__inner" :style="{transform: orientation}">
                 <img class="card__inner--front" :src="item">
                 <img src="../assets/cards/red_back.png" class="card__inner--back" alt="">
             </div>
         </div>
-
-
+    </section>
+    <section class="guesser" v-else>
+        <h1>The guess is here!</h1>
     </section>
         <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
     <div style="height:100px; width:100%"></div>
@@ -39,6 +39,7 @@ export default {
             seconds: 10,
             orientation: "rotateY(0deg)",
             cardsLeft: 5,
+            guessing: false,
    
         }
     },
@@ -76,6 +77,7 @@ export default {
         },
         startGuessing(){
             this.seconds = -1;
+            this.guessing = true;
         }
     },
     async mounted(){
