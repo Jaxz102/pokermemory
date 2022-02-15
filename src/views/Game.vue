@@ -11,6 +11,7 @@
     </section>
     <section class="guesser" v-else>
         <h1>The guess is here!</h1>
+        <img :src="item" alt="">
     </section>
         <!-- <img v-for="(item, index) in selectedimg" :src="item"> -->
     <div style="height:100px; width:100%"></div>
